@@ -6,6 +6,7 @@ import models
 import torch
 import pdb
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def train(net, dataloader, optimizer, criterion, epoch):
 
@@ -48,6 +49,7 @@ def test(net, dataloader, tag=''):
     with torch.no_grad():
         for data in dataTestLoader:
             images, labels = data
+            inputs, labels = inputs.to(device), labels.to(device)
             outputs = net(images)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
@@ -101,4 +103,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
