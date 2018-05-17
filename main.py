@@ -63,6 +63,7 @@ def test(net, dataloader, tag=''):
     with torch.no_grad():
         for data in dataTestLoader:
             images, labels = data
+            images, labels = images.to(device), labels.to(device)
             outputs = net(images)
             _, predicted = torch.max(outputs, 1)
             c = (predicted == labels).squeeze()
