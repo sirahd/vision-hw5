@@ -15,6 +15,7 @@ def train(net, dataloader, optimizer, criterion, epoch):
     for i, data in enumerate(dataloader.trainloader, 0):
         # get the inputs
         inputs, labels = data
+        inputs, labels = inputs.to(device), labels.to(device)
 
         # zero the parameter gradients
         optimizer.zero_grad()
@@ -79,6 +80,7 @@ def main():
 
     cifarLoader = CifarLoader(args)
     net = args.model()
+    net.to(device)
     print('The log is recorded in ')
     print(net.logFile.name)
 
@@ -98,3 +100,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
