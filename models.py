@@ -59,8 +59,8 @@ class BoringNet(BaseModel):
     def forward(self, x):
         # TODO: Implement forward pass for BoringNet
         x = x.view(-1, 32 * 32 * 3)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
+        x = self.fc1(x)
+        x = self.fc2(x)
         x = self.fc3(x)
         return x
 
