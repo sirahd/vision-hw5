@@ -24,8 +24,10 @@ def train(net, dataloader, optimizer, criterion, epoch):
         # forward + backward + optimize
         outputs = net(inputs)
         labels_onehot = torch.FloatTensor(outputs.size())
+        labels_onehot.zero_()
         labels = labels.view(-1, 1)
         labels_onehot = labels_onehot.scatter(1, labels, 1)
+        #print(outputs, labels_onehot)
         loss = criterion(outputs, labels_onehot)
         loss.backward()
         optimizer.step()
